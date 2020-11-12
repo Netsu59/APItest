@@ -60,6 +60,89 @@ public class BaseTest {
                 .body("body", equalTo("wqeqew"));
     }
 
+    @Test
+    public void test_createPostWithoutUserId() {
+        Post post = new Post();
+        post.setId(101);
+        post.setTitle("ewqeqwe");
+        post.setBody("wqeqew");
+
+        given()
+                .contentType("application/json")
+                .body(post)
+                .when()
+                .post("https://jsonplaceholder.typicode.com/posts")
+                .then()
+                .statusCode(201)
+                .log().body()
+                .body("userId", equalTo(null))
+                .body("id", equalTo(101))
+                .body("title", equalTo("ewqeqwe"))
+                .body("body", equalTo("wqeqew"));
+    }
+
+    @Test
+    public void test_createPostWithoutId() {
+        Post post = new Post();
+        post.setUserId(9);
+        post.setTitle("ewqeqwe");
+        post.setBody("wqeqew");
+
+        given()
+                .contentType("application/json")
+                .body(post)
+                .when()
+                .post("https://jsonplaceholder.typicode.com/posts")
+                .then()
+                .statusCode(201)
+                .log().body()
+                .body("userId", equalTo(9))
+                .body("id", equalTo(101))
+                .body("title", equalTo("ewqeqwe"))
+                .body("body", equalTo("wqeqew"));
+    }
+
+    @Test
+    public void test_createPostWithoutTitle() {
+        Post post = new Post();
+        post.setUserId(9);
+        post.setId(101);
+        post.setBody("wqeqew");
+
+        given()
+                .contentType("application/json")
+                .body(post)
+                .when()
+                .post("https://jsonplaceholder.typicode.com/posts")
+                .then()
+                .statusCode(201)
+                .log().body()
+                .body("userId", equalTo(9))
+                .body("id", equalTo(101))
+                .body("title", equalTo(null))
+                .body("body", equalTo("wqeqew"));
+    }
+
+    @Test
+    public void test_createPostWithoutBody() {
+        Post post = new Post();
+        post.setUserId(9);
+        post.setId(101);
+        post.setTitle("ewqeqwe");
+
+        given()
+                .contentType("application/json")
+                .body(post)
+                .when()
+                .post("https://jsonplaceholder.typicode.com/posts")
+                .then()
+                .statusCode(201)
+                .log().body()
+                .body("userId", equalTo(9))
+                .body("id", equalTo(101))
+                .body("title", equalTo("ewqeqwe"))
+                .body("body", equalTo(null));
+    }
 
     @Test
     public void test_changePost() {
